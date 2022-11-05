@@ -47,7 +47,7 @@ let displayMessege = (messege,sender) => {
   div.appendChild(img);
   div.appendChild(p);
   div.appendChild(span);
-  document.getElementById("messege-container").prepend(div);
+  document.getElementById("messege-container").append(div);
 }
 
 let displayContent = (messege,time) =>{
