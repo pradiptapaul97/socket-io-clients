@@ -1,4 +1,5 @@
-import { useState,React  } from "react";
+import { useState } from "react";
+import logo from './logo.svg';
 import { io } from "socket.io-client"; //import socket
 import './App.css';
 import Button from 'react-bootstrap/Button';
@@ -24,9 +25,36 @@ let displayMessege = (messege,sender) => {
   let div = document.createElement("div");
   div.classList.add("containerMessege");
   let p = document.createElement("p");
+  let span = document.createElement("SPAN");
+  let img = document.createElement('img');
+  img.src = logo;
+  img.style.width = '100%'
+  if(sender === 'Friend')
+  {
+    img.classList.add("right");
+    span.classList.add("time-left");
+    div.classList.add("darker");
+  }
+  else
+  {
+    span.classList.add("time-right");
+  }
+  span.appendChild(document.createTextNode(new Date().toLocaleString()));
   p.appendChild(document.createTextNode(`${sender} : ${messege}`));
+  div.appendChild(img);
   div.appendChild(p);
-  document.getElementById("messege-container").append(div);
+  div.appendChild(span);
+  document.getElementById("messege-container").prepend(div);
+}
+
+let displayContent = (messege,time) =>{
+  return (
+    <div className="containerMessege">
+      <img src={{logo}} alt="Avatar" style={{width:"100%"}}/>
+      <p>{messege}</p>
+      <span className="time-right">{time}</span>
+    </div>
+  )
 }
 
 function App() {
