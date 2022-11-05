@@ -1,5 +1,6 @@
 import { useState } from "react";
 import logo from './logo.svg';
+import me from './me.png';
 import { io } from "socket.io-client"; //import socket
 import './App.css';
 import Button from 'react-bootstrap/Button';
@@ -27,20 +28,22 @@ let displayMessege = (messege,sender) => {
   let p = document.createElement("p");
   let span = document.createElement("SPAN");
   let img = document.createElement('img');
-  img.src = logo;
   img.style.width = '100%'
   if(sender === 'Friend')
   {
-    img.classList.add("right");
     span.classList.add("time-left");
-    div.classList.add("darker");
+    img.src = logo;
   }
   else
   {
+    img.src = me;
+    p.style.textAlign = 'right';
+    img.classList.add("right");
     span.classList.add("time-right");
+    div.classList.add("darker");
   }
   span.appendChild(document.createTextNode(new Date().toLocaleString()));
-  p.appendChild(document.createTextNode(`${sender} : ${messege}`));
+  p.appendChild(document.createTextNode(`${messege}`));
   div.appendChild(img);
   div.appendChild(p);
   div.appendChild(span);
@@ -68,7 +71,8 @@ function App() {
     if(messege !== '')
     {
       socket.emit('send-messege',messege,room);
-      displayMessege(messege,'me');
+      displayMessege(messege,'Me');
+      setMessege('')
     }
   }
 
@@ -84,15 +88,17 @@ function App() {
   <Container>
   <h2>Chat Messages</h2>
 
-  <div id="messege-container" aria-readonly style={{overflowY:"scroll", height:"400px", background:"gray"}}>
+  <div id="messege-container" aria-readonly style={{overflowY:"scroll", height:"500px", background:"gray"}}>
     
   </div>
+     <InputGroup className="mb-3"></InputGroup>
      <InputGroup className="mb-3">
         <Form.Control
           placeholder="Messege"
           aria-label="Messege"
           aria-describedby="basic-addon2"
           name="messege"
+          value={messege}
           onChange={(e) => setMessege(e.target.value)}
         />
         <Button variant="outline-secondary" id="button-addon2" onClick={sendMessege}>
