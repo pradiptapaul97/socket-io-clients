@@ -40,7 +40,6 @@ function App() {
     {
       socket.emit('send-messege',messege,room);
       displayMessege(messege,'me');
-      messege = '';
     }
   }
 
