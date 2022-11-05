@@ -9,17 +9,17 @@ import Form from 'react-bootstrap/Form';
 const socket = io('http://localhost:4000');
 
 socket.on('connect', () => {
-  console.log(socket.id,"room");
+  //console.log(socket.id,"room");
 });
 
 socket.on('receive-messege',(messege)=>{
-  console.log(1);
+  //console.log(1);
   displayMessege(messege);
 })
 
 let displayMessege = (messege,sender) => {
   sender = (sender?(sender):"Friend")
-  console.log(messege,sender);
+  //console.log(messege,sender);
   let div = document.createElement("div");
   div.classList.add("containerMessege");
   let p = document.createElement("p");
@@ -34,8 +34,8 @@ function App() {
   let [room, setRoom] = useState("");
 
   let sendMessege = () =>{
-    console.log(2);
-    console.log(messege);
+    //console.log(2);
+    //console.log(messege);
     if(messege !== '')
     {
       socket.emit('send-messege',messege,room);
@@ -45,8 +45,8 @@ function App() {
   }
 
   let joinRoom = () => {
-    console.log(3);
-    console.log(room);
+    //console.log(3);
+    //console.log(room);
     socket.emit('join-room',room,(messege)=>{ //send callback to receive inforation
       displayMessege(messege);
   });
