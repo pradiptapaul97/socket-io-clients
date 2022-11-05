@@ -6,7 +6,8 @@ import Container from 'react-bootstrap/Container';
 import InputGroup from 'react-bootstrap/InputGroup';
 
 import Form from 'react-bootstrap/Form';
-const socket = io('http://localhost:4000');
+//const socket = io('http://localhost:4000');
+const socket = io('https://pradipta-socket-server.herokuapp.com');
 
 socket.on('connect', () => {
   //console.log(socket.id,"room");
